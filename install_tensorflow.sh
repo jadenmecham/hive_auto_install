@@ -9,7 +9,7 @@ sudo apt -y install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
 sudo apt-get -y update
 
 # Install development and runtime libraries (~4GB)
-sudo apt-get install --no-install-recommends \
+sudo apt-get -y install --no-install-recommends \
     cuda-10-0 \
     libcudnn7=7.6.2.24-1+cuda10.0  \
     libcudnn7-dev=7.6.2.24-1+cuda10.0
