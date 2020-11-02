@@ -1,22 +1,20 @@
-# This script assumes you have installed the nvidia gpu driver
-# Add NVIDIA package repositories
-wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
-sudo dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
-sudo apt-key -y adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub
-sudo apt-get -y update
-wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64/nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-sudo apt -y install ./nvidia-machine-learning-repo-ubuntu1804_1.0.0-1_amd64.deb
-sudo apt-get -y update
+# This script assumes you have installed the nvidia gpu driver and are running Ubuntu 18.04
+# Install Cuda Toolkit 10.1
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin
+sudo mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget http://developer.download.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda-repo-ubuntu1804-10-1-local-10.1.243-418.87.00_1.0-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu1804-10-1-local-10.1.243-418.87.00_1.0-1_amd64.deb
+sudo apt-key add /var/cuda-repo-10-1-local-10.1.243-418.87.00/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
 
-# Install development and runtime libraries (~4GB)
-sudo apt-get -y install --no-install-recommends \
-    cuda-10-0 \
-    libcudnn7=7.6.2.24-1+cuda10.0  \
-    libcudnn7-dev=7.6.2.24-1+cuda10.0
+# Install Cudnn 8.0.4 for Cuda Toolkit 10.1
+wget https://developer.nvidia.com/compute/machine-learning/cudnn/secure/8.0.4/10.1_20200923/cudnn-10.1-linux-x64-v8.0.4.30.tgz
+tar -xzvf cudnn-*.tgz
+sudo cp cuda/include/cudnn*.h /usr/local/cuda/include
+sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64
+sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
 
-
-# Install TensorRT. Requires that libcudnn7 is installed above.
-sudo apt-get install -y --no-install-recommends libnvinfer5=5.1.5-1+cuda10.0 \
-    libnvinfer-dev=5.1.5-1+cuda10.0
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64' >>~/.bash_profile
 
 pip install tensorflow-gpu
