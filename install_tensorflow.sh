@@ -17,4 +17,5 @@ sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
 
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/extras/CUPTI/lib64' >>~/.bash_profile
 
-pip install tensorflow-gpu
+pip install tensorflow
+pip3 install tensorflow
