@@ -1,8 +1,22 @@
 read -r -p "Would you like to install ROS? [Y/n] " input
  
 case $input in
-[yY][eE][sS]|[yY]) ros=true;;
-[nN][oO]|[nN])ros=false;;
+[yY][eE][sS]|[yY])
+    ros=true
+    read -r -p "Would you like to install Gazebo? [Y/n] " input2
+    case $input2 in
+    [yY][eE][sS]|[yY]) gazebo=true;;
+    [nN][oO]|[nN])gazebo=false;;
+    *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+    esac
+;;
+[nN][oO]|[nN])
+ros=false
+gazebo=false
+;;
 *)
     echo "Invalid input..."
     exit 1
@@ -69,6 +83,9 @@ then
 else
     echo "Non-compatible version"
 fi
-
+if $gazebo
+then
+    curl -sSL http://get.gazebosim.org | sh
+fi
 #Snap install programs
 sudo snap install pycharm-community --classic
