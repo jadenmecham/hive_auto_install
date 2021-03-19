@@ -83,6 +83,10 @@ then
 else
     echo "Non-compatible version"
 fi
+if $ros
+then
+    sudo apt install -y python-catkin-tools
+fi
 if $gazebo
 then
     curl -sSL http://get.gazebosim.org | sh
