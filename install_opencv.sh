@@ -1,3 +1,8 @@
+default="4.0.0"
+latest=`curl -s https://api.github.com/repos/opencv/opencv/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")'`
+read -p "What version of opencv would you like to install? [default=$default] " version
+: ${version:=$default}
+
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt-get -y install build-essential cmake unzip pkg-config
@@ -8,12 +13,12 @@ sudo apt-get -y install libgtk-3-dev
 sudo apt-get -y install libatlas-base-dev gfortran
 sudo apt-get -y install python3-dev
 cd ~
-wget -O opencv.zip https://github.com/opencv/opencv/archive/4.0.0.zip
-wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/4.0.0.zip
+wget -O opencv.zip https://github.com/opencv/opencv/archive/$version.zip
+wget -O opencv_contrib.zip https://github.com/opencv/opencv_contrib/archive/$version.zip
 unzip opencv.zip
 unzip opencv_contrib.zip
-mv opencv-4.0.0 opencv
-mv opencv_contrib-4.0.0 opencv_contrib
+mv opencv-$version opencv
+mv opencv_contrib-$version opencv_contrib
 pip install numpy
 cd ~/opencv
 mkdir build
