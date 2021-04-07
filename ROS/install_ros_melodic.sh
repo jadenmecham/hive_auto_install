@@ -6,4 +6,4 @@ sudo rosdep init
 rosdep update
 echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
-sudo apt install -y python-rosinstall python-rosinstall-generator python-wstool build-essential ros-melodic-joy* ros-melodic-eigen-stl
+sudo apt install -y python-rosinstall python-rosinstall-generator python-wstool build-essential ros-melodic-joy* ros-melodic-eigen*
