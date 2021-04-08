@@ -1,4 +1,5 @@
 chmod -R 755 ./*.sh
+#test
 read -r -p "Would you like to install ROS? [Y/n] " inputROS
 case $inputROS in
 [yY][eE][sS]|[yY])
