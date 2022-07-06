@@ -78,6 +78,7 @@ then
     if $ros
     then
         sh ./ROS/install_ros_noetic.sh
+        sudo apt install -y python3-catkin-tools
     fi
 elif [[ $(lsb_release -rs) == "18.04" ]]
 then
@@ -85,6 +86,7 @@ then
     if $ros
     then
         sh ./ROS/install_ros_melodic.sh
+        sudo apt install -y python-catkin-tools
     fi
 elif [[ $(lsb_release -rs) == "16.04" ]]
 then
@@ -92,13 +94,10 @@ then
     if $ros
     then
         sh ./ROS/install_ros_kinetic.sh
+        sudo apt install -y python-catkin-tools
     fi
 else
     echo "Non-compatible version"
-fi
-if $ros
-then
-    sudo apt install -y python-catkin-tools
 fi
 if $gazebo
 then
