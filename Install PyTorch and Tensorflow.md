@@ -1,4 +1,4 @@
-#How to install PyTorch and Tensorflow with GPU support
+# How to install PyTorch and Tensorflow with GPU support
 This guide assumes you have run the autoinstall.sh script found at the root of this repo
 It also assumes that you have a nvidia gpu in your computer
 
