@@ -19,11 +19,11 @@ wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/
 chmod 755 ./cuda_11.3.0_465.19.01_linux.run
 sudo sh cuda_11.3.0_465.19.01_linux.run
 ```
-wait a while for it to run
-accept eula
-unselect the driver
-run install
-wait for install to finish
+1. Wait a while for it to run
+2. Accept eula
+3. Unselect the driver
+4. Run install
+5. Wait for install to finish
 
 ## Install Cudnn
 Go to the following link to download cudnn https://developer.nvidia.com/rdp/cudnn-download
