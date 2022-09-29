@@ -69,7 +69,7 @@ sudo apt-add-repository -y ppa:remmina-ppa-team/remmina-next
 sudo apt update -y
 
 #Apt install programs
-sudo apt install -y git terminator exfat-utils openssh-server python3-pip net-tools remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice
+sudo apt install -y git terminator exfat-utils openssh-server python3-pip net-tools remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice libgmock-dev
 
 echo $ros
 if [[ $(lsb_release -rs) == "20.04" ]]
@@ -78,7 +78,7 @@ then
     if $ros
     then
         sh ./ROS/install_ros_noetic.sh
-        sudo apt install -y python3-catkin-tools
+        sudo apt install -y python3-catkin*
     fi
 elif [[ $(lsb_release -rs) == "18.04" ]]
 then
@@ -118,5 +118,6 @@ then
 fi
 #Snap install programs
 sudo snap install pycharm-community --classic
+sudo snap install gitkraken --classic
 
 sudo apt autoremove -y
