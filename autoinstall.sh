@@ -1,13 +1,13 @@
 chmod -R 755 ./*.sh
-osrelease = $(lsb_release -rs)
+os_release=$(lsb_release -rs)
 ros2=false
 read -r -p "Would you like to install ROS? [Y/n] " inputROS
 case $inputROS in
 [yY][eE][sS]|[yY])
 	ros=true
-	if [[ $os_release == "22.04" || $os_release == "20.04"]]
+	if [[ $os_release == "22.04" || $os_release == "20.04" ]]
 	then
-		read -r -p "Would you like to install ROS2? [Y/n] " inputROS2
+		read -r -p "Would you like to install ROS2? Not Recommended [Y/n] " inputROS2
 		case $inputROS2 in
 		[yY][eE][sS]|[yY]) ros2=true;;
 		[nN][oO]|[nN])ros2=false;;
@@ -85,46 +85,36 @@ sudo apt update -y
 #Apt install programs
 sudo apt install -y git terminator exfat-utils openssh-server python3-pip net-tools remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice libgmock-dev
 
-echo $ros
-if [[ $os_release == "22.04" ]]
-then
+if [[ $os_release == "22.04" ]]; then
 	if $ros
 	then
 		if $ros2
 		then
 			sh ./ROS/install_ros2_humble.sh
-		fi
 		else
-		then
 			echo "Ros1 is not supported on 22.04"
 		fi
 	fi
-	
-elif [[ $os_release == "20.04" ]]
-then
+elif [[ $os_release == "20.04" ]]; then
 	sh ./install_2004_utils.sh
-	if $ros:
+	if $ros
 	then
 		if $ros2
 		then
 			sh ./ROS/install_ros2_foxy.sh
-		fi
 		else
-		then
 			sh ./ROS/install_ros_noetic.sh
 			sudo apt install -y python3-catkin*
 		fi
 	fi
-elif [[ $os_release == "18.04" ]]
-then
+elif [[ $os_release == "18.04" ]]; then
 	sudo apt install python-pip -y
 	if $ros
 	then
 		sh ./ROS/install_ros_melodic.sh
 		sudo apt install -y python-catkin-tools
 	fi
-elif [[ $os_release == "16.04" ]]
-then
+elif [[ $os_release == "16.04" ]]; then
 	sudo apt install python-pip -y
 	if $ros
 	then
