@@ -1,4 +1,7 @@
-if [[ $(lsb_release -rs) == "18.04" ]]
+if [[ $(lsb_release -rs) == "20.04" ]]
+then
+    sudo apt install -y ros-noetic-kobuki* ros-noetic-eigen-stl-containers ros-noetic-ecl* ros-noetic-joy ros-noetic-turtlebot*
+elif [[ $(lsb_release -rs) == "18.04" ]]
 then
     sudo apt install -y ros-melodic-kobuki* ros-melodic-yocs* ros-melodic-eigen-stl-containers ros-melodic-ecl* ros-melodic-joy* ros-melodic-turtlebot*
 elif [[ $(lsb_release -rs) == "16.04" ]]
