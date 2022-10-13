@@ -6,7 +6,7 @@ git clone http://10.251.72.180/magnav/magnavbundle.git
 cd ~/magnav_ws/src/magnavbundle/
 git submodule update --init --recursive
 cd ~/magnav_ws/src/
-git clone http://10.251.72.180:torque_flight/torque_flight.git
+git clone http://10.251.72.180/torque_flight/torque_flight.git
 cd ~/magnav_ws/src/torque_flight/
 git submodule update --init --recursive
 cd ~/magnav_ws/src/
