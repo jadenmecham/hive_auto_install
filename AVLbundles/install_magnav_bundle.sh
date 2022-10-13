@@ -2,11 +2,11 @@ sudo apt install -y libgmock-dev ros-$ROS_DISTRO-kobuki* ros-$ROS_DISTRO-base-lo
 mkdir -p ~/magnav_ws/src
 cd ~/magnav_ws/src/
 catkin_init_workspace
-git clone http://192.168.1.101/magnav/magnavbundle.git
+git clone http://10.251.72.180/magnav/magnavbundle.git
 cd ~/magnav_ws/src/magnavbundle/
 git submodule update --init --recursive
 cd ~/magnav_ws/src/
-git clone http://192.168.1.101:torque_flight/torque_flight.git
+git clone http://10.251.72.180:torque_flight/torque_flight.git
 cd ~/magnav_ws/src/torque_flight/
 git submodule update --init --recursive
 cd ~/magnav_ws/src/
