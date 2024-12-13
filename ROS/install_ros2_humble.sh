@@ -8,6 +8,7 @@ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o
 sudo rm -f /etc/apt/trusted.gpg.d/osrf.gpg
 apt-key export osrf | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/osrf.gpg
 echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu jammy main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+sudo apt update
 sudo apt install -y libpython3-dev python3-pip ros-humble-desktop ros-humble-turtlebot3* ros-humble-tf* python3-rosdep python3-colcon-common-extensions
 sudo pip3 install transforms3d
 sudo pip3 install -U argcomplete
