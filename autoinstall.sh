@@ -1,17 +1,15 @@
 chmod -R 755 ./*.sh
 os_release=$(lsb_release -rs)
+major=$(echo "$os_release" | cut -d'.' -f1)
 
-
-read -p "Would you like to install ROS? [Y/n]: " yn
+read -p "Would you like to install ROS1? [Y/n]: " yn
 case $yn in
 	[Yy]* ) ros=true;;
 	[Nn]* ) ros=false;;
 	"" ) ros=true;;
 	* ) ros=false;;
 esac
-if $ros
-then
-	if [[ $os_release == "22.04" || $os_release == "20.04" ]]
+if [ $major -ge 20 ];
 	then
 		read -p "Would you like to install ROS2? [Y/n]: " yn
 		case $yn in
@@ -23,18 +21,18 @@ then
 	else
 		ros2=false
 	fi
-	read -p "Would you like to install Gazebo? [Y/n]: " yn
-	case $yn in
-		[Yy]* ) gazebo=true;;
-		[Nn]* ) gazebo=false;;
-		"" ) gazebo=true;;
-		* ) gazebo=false;;
-	esac
-else
-	ros=false
-	ros2=false
-	gazebo=false
-fi
+if $ros || $ros2
+    then
+        read -p "Would you like to install Gazebo? [Y/n]: " yn
+        case $yn in
+            [Yy]* ) gazebo=true;;
+            [Nn]* ) gazebo=false;;
+            "" ) gazebo=true;;
+            * ) gazebo=false;;
+        esac
+    else
+        gazebo=false
+    fi
 
 #Disable ipv6
 sh ./disable_ipv6.sh
@@ -46,35 +44,39 @@ sudo apt dist-upgrade -y
 #Add Repos
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+sudo apt update -y
+sudo apt-key export D38B4796 | sudo gpg --dearmor -o /usr/share/keyrings/google.gpg
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/google.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 sudo add-apt-repository -y ppa:graphics-drivers
 sudo apt-add-repository -y ppa:remmina-ppa-team/remmina-next
+curl -fsS -o- https://deb.packages.mattermost.com/setup-repo.sh | sudo bash
+sudo curl -sSfL https://packages.openvpn.net/packages-repo.gpg >/etc/apt/keyrings/openvpn.asc
 sudo apt update -y
 
 #Apt install programs
-sudo apt install -y git terminator openssh-server python3-pip net-tools remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice libgmock-dev google-chrome-stable
+sudo apt install -y git terminator openssh-server python3-pip net-tools remmina remmina-plugin-rdp remmina-plugin-secret remmina-plugin-spice libgmock-dev google-chrome-stable apt-transport-https \
+    curl gnome-shell-extension-manager nm-connection-editor network-manager-openconnect-gnome mattermost-desktop 
 
 if [[ $os_release == "22.04" ]]; then
 	if $ros
-	then
-		if $ros2
+        then
+            sh ./ROS/install_ros_one.sh
+    fi
+	if $ros2
 		then
 			sh ./ROS/install_ros2_humble.sh
-		else
-			echo "Ros1 is not supported on 22.04"
-		fi
 	fi
 elif [[ $os_release == "20.04" ]]; then
 	sh ./install_2004_utils.sh
 	sudo apt install -y exfat-utils
 	if $ros
-	then
-		if $ros2
+        then
+            sh ./ROS/install_ros_noetic.sh
+            sudo apt install -y python3-catkin*
+    fi
+	if $ros2
 		then
 			sh ./ROS/install_ros2_foxy.sh
-		else
-			sh ./ROS/install_ros_noetic.sh
-			sudo apt install -y python3-catkin*
-		fi
 	fi
 elif [[ $os_release == "18.04" ]]; then
 	sudo apt install -y exfat-utils
@@ -99,6 +101,11 @@ if $gazebo
 then
 	curl -sSL http://get.gazebosim.org | sh
 fi
+
+#Apt install deb files
+wget https://zoom.us/client/6.2.11.5069/zoom_amd64.deb
+sudo apt install -y ./zoom_amd64.deb
+
 
 #Snap install programs
 sudo snap install pycharm-community --classic
