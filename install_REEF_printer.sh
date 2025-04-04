@@ -6,15 +6,15 @@ read -s UFPASSWORD
 echo
 QUEUE=TSS-SRV-Print-2.ad.ufl.edu/ENG-REEF142-PRT-C7030_BW
 DEVICEURI=smb://$UFUSERNAME:$UFPASSWORD@ad.ufl.edu/$QUEUE
-smbclient -L //$QUEUE -U $UFUSERNAME%$UFPASSWORD &>/dev/null
+smbclient -L //$QUEUE -U $UFUSERNAME@ad.ufl.edu%$UFPASSWORD &>/dev/null
 status=$?
-while [$status -eq 0];
+while [[ "$status" != "0" ]];
 do
     echo "Password incorrect"
     echo -n "Enter UF password: "
     read -s UFPASSWORD
     echo
-    smbclient -L //$QUEUE -U $UFUSERNAME%$UFPASSWORD &>/dev/null
+    smbclient -L //$QUEUE -U $UFUSERNAME@ad.ufl.edu%$UFPASSWORD &>/dev/null
     status=$?
 done
 UFPASSWORD=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0]), "\n"' "$UFPASSWORD")
