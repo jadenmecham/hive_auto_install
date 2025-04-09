@@ -24,7 +24,7 @@ if [ $major -ge 20 ];
 
 #Disable ipv6
 sh ./disable_ipv6.sh
-
+sh ./mDNSfix.sh
 #Update System
 sudo apt update -y
 sudo apt dist-upgrade -y
