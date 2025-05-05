@@ -10,14 +10,14 @@ sudo apt dist-upgrade -Y
 
 ## Install the Nvidia Driver
 ```
-sudo apt install nvidia-driver-455
+sudo apt install nvidia-driver-570
 ```
 
-## Install Cuda Toolkit 11.3
+## Install Cuda Toolkit 12.8
 ```
-wget https://developer.download.nvidia.com/compute/cuda/11.3.0/local_installers/cuda_11.3.0_465.19.01_linux.run
-chmod 755 ./cuda_11.3.0_465.19.01_linux.run
-sudo sh cuda_11.3.0_465.19.01_linux.run
+wget https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda_12.8.0_570.86.10_linux.run
+chmod 755 ./cuda_12.8.0_570.86.10_linux.run
+sudo sh cuda_12.8.0_570.86.10_linux.run
 ```
 1. Wait a while for it to run
 2. Accept eula
@@ -26,11 +26,13 @@ sudo sh cuda_11.3.0_465.19.01_linux.run
 5. Wait for install to finish
 
 ## Install Cudnn
-Go to the following link to download cudnn https://developer.nvidia.com/rdp/cudnn-download
-Login to your Nvidia Developer account (Create one if you don't have one)
-Download for 11.x
-Local Installer for Linux x86_64 (Tar)
+Go to the following link to download cudnn https://developer.nvidia.com/cudnn-downloads
+Operating System: Linux
+Architecture: x86_64
+Distribution: Tarball
+CUDA Version: 12
 ```
+wget https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.9.0.52_cuda12-archive.tar.xz
 tar -xvf ./cudnn (TAB KEY)
 sudo cp cudnn-*-archive/include/cudnn*.h /usr/local/cuda/include
 sudo cp -P cudnn-*-archive/lib/libcudnn* /usr/local/cuda/lib64
@@ -67,7 +69,7 @@ print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 
 ## Install PyTorch
 ```
-pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 ```
 
 ## Verify PyTorch Installation
