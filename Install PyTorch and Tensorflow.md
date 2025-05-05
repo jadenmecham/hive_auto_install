@@ -1,5 +1,5 @@
 # How to install PyTorch and Tensorflow with GPU support
-This guide assumes you have run the autoinstall.sh script found at the root of this repo
+This guide assumes you have run the autoinstall.sh script found at the root of this repo <br />
 It also assumes that you have a nvidia gpu in your computer
 
 ## Update your system
@@ -26,11 +26,11 @@ sudo sh cuda_12.8.0_570.86.10_linux.run
 5. Wait for install to finish
 
 ## Install Cudnn
-Go to the following link to download cudnn https://developer.nvidia.com/cudnn-downloads
-Operating System: Linux
-Architecture: x86_64
-Distribution: Tarball
-CUDA Version: 12
+Go to the following link to download cudnn https://developer.nvidia.com/cudnn-downloads <br />
+Operating System: Linux <br />
+Architecture: x86_64 <br />
+Distribution: Tarball <br />
+CUDA Version: 12 <br />
 ```
 wget https://developer.download.nvidia.com/compute/cudnn/redist/cudnn/linux-x86_64/cudnn-linux-x86_64-9.9.0.52_cuda12-archive.tar.xz
 tar -xvf ./cudnn (TAB KEY)
@@ -68,14 +68,14 @@ print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 ```
 
 ## Install PyTorch
-Check your GPU compute capability here: https://developer.nvidia.com/cuda-gpus
-If your system has a GPU with compute capability >= 5.0 & < 7.5 follow these instructions
-```
-pip3 install torch==2.6.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
-```
+Check your GPU compute capability here: https://developer.nvidia.com/cuda-gpus <br />
 If your system has a GPU with compute capability >= 7.5 follow these instructions
 ```
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+```
+If your system has a legacy GPU with compute capability >= 5.0 & < 7.5 follow these instructions
+```
+pip3 install torch==2.6.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
 ```
 
 ## Verify PyTorch Installation
