@@ -68,6 +68,12 @@ print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 ```
 
 ## Install PyTorch
+Check your GPU compute capability here: https://developer.nvidia.com/cuda-gpus
+If your system has a GPU with compute capability >= 5.0 & < 7.5 follow these instructions
+```
+pip3 install torch==2.6.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu126
+```
+If your system has a GPU with compute capability >= 7.5 follow these instructions
 ```
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
 ```
