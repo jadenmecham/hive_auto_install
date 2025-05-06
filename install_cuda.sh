@@ -14,3 +14,14 @@ sudo chmod a+r /usr/local/cuda/include/cudnn*.h /usr/local/cuda/lib64/libcudnn*
 sudo sh -c "grep -q -F 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}}' /etc/bash.bashrc || echo 'export PATH=/usr/local/cuda/bin${PATH:+:${PATH}}}' >> /etc/bash.bashrc"
 sudo sh -c "grep -q -F 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda/lib64' /etc/bash.bashrc || echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/usr/local/cuda/lib64' >> /etc/bash.bashrc"
 echo "You must reboot before installing pyTorch or Tensorflow!"
+read -p "Would you like to reboot immediately and install pyTorch and Tensorflow automatically after reboot? [Y/n]: " yn
+case $yn in
+	[Yy]* ) reboot=true;;
+	[Nn]* ) reboot=false;;
+	"" ) reboot=true;;
+	* ) reboot=false;;
+esac
+if [[ $reboot ]]; then
+  echo "@reboot $(pwd)/install_TFpyTorch.sh" | sudo crontab -
+  sudo shutdown -r now
+fi
