@@ -22,6 +22,6 @@ case $yn in
 	* ) reboot=false;;
 esac
 if [[ $reboot ]]; then
-  echo "@reboot $(pwd)/install_TFpyTorch.sh" | sudo crontab -
-  sudo shutdown -r now
+	(sudo crontab -l; echo "@reboot $(pwd)/install_TFpyTorch.sh") | sudo crontab -
+	sudo shutdown -r now
 fi

@@ -21,6 +21,18 @@ if [ $major -ge 20 ];
 	else
 		ros2=false
 	fi
+	
+if lspci | grep -iq "nvidia"; then
+	read -p "Would you like to install Cuda Toolkit? [Y/n]: " yn
+	case $yn in
+		[Yy]* ) cuda=true;;
+		[Nn]* ) cuda=false;;
+		"" ) cuda=true;;
+		* ) cuda=false;;
+	esac
+else
+	cuda=false
+fi
 
 #Disable ipv6
 sh ./disable_ipv6.sh
@@ -107,3 +119,6 @@ sudo snap install gitkraken --classic
 sudo snap install code --classic
 
 sudo apt autoremove -y
+if [[ $cuda ]]; then
+	sh ./install_cuda.sh
+fi
