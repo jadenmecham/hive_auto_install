@@ -1,39 +1,86 @@
 chmod -R 755 ./*.sh
 os_release=$(lsb_release -rs)
 major=$(echo "$os_release" | cut -d'.' -f1)
-
-read -p "Would you like to install ROS1? [Y/n]: " yn
-case $yn in
-	[Yy]* ) ros=true;;
-	[Nn]* ) ros=false;;
-	"" ) ros=true;;
-	* ) ros=false;;
-esac
-if [ $major -ge 20 ];
-	then
-		read -p "Would you like to install ROS2? [Y/n]: " yn
+print_help() {
+  echo "Usage: $0 [--ros] [--ros2] [--cuda] [--cudareboot]"
+  echo "Options:"
+  echo "  --ros   Install ROS1"
+  echo "  --ros2  Install ROS2"
+  echo "  --cuda  Install Cuda Toolkit only"
+  echo "  --cudareboot  Install Cuda Toolkit and reboot to automatically install pyTorch & Tensorflow"
+}
+ros=false
+ros2=false
+cuda=false
+reboot=false
+if [ $# -eq 0 ]; then
+ 	read -p "Would you like to install ROS1? [Y/n]: " yn
+	case $yn in
+		[Yy]* ) ros=true;;
+		[Nn]* ) ros=false;;
+		"" ) ros=true;;
+		* ) ros=false;;
+	esac
+	if [ $major -ge 20 ];
+		then
+			read -p "Would you like to install ROS2? [Y/n]: " yn
+			case $yn in
+				[Yy]* ) ros2=true;;
+				[Nn]* ) ros2=false;;
+				"" ) ros2=true;;
+				* ) ros2=false;;
+			esac
+		else
+			ros2=false
+		fi
+		
+	if lspci | grep -iq "nvidia"; then
+		read -p "Would you like to install Cuda Toolkit? [Y/n]: " yn
 		case $yn in
-			[Yy]* ) ros2=true;;
-			[Nn]* ) ros2=false;;
-			"" ) ros2=true;;
-			* ) ros2=false;;
+			[Yy]* ) cuda=true;;
+			[Nn]* ) cuda=false;;
+			"" ) cuda=true;;
+			* ) cuda=false;;
 		esac
 	else
-		ros2=false
+		cuda=false
 	fi
-	
-if lspci | grep -iq "nvidia"; then
-	read -p "Would you like to install Cuda Toolkit? [Y/n]: " yn
-	case $yn in
-		[Yy]* ) cuda=true;;
-		[Nn]* ) cuda=false;;
-		"" ) cuda=true;;
-		* ) cuda=false;;
-	esac
-else
-	cuda=false
 fi
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --ros)
+      ros=true
+      shift
+      ;;
+    --ros2)
+      ros2=true
+      shift
+      ;;
+    --cuda)
+      cuda=true
+      shift
+      ;;
+    --cudareboot)
+      cuda=true
+      reboot=true
+      shift
+      ;;
+    -h|--help)
+      print_help
+      exit 0
+      ;;
+    *)
+      echo "Error: Invalid argument '$1'"
+      print_help
+      exit 1
+      ;;
+  esac
+done
 
+#Prevent ROS2 install on Ubuntu installs older than 20.04
+if [ $major -lt 20 ];then
+  ros2=false
+fi
 #Disable ipv6
 sh ./disable_ipv6.sh
 sh ./mDNSfix.sh
@@ -120,5 +167,9 @@ sudo snap install code --classic
 
 sudo apt autoremove -y
 if [[ $cuda ]]; then
-	sh ./install_cuda.sh
+	if [[ $reboot ]]; then
+		sh ./install_cuda.sh --reboot
+	else
+		sh ./install_cuda.sh
+	fi
 fi
