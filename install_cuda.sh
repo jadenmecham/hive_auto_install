@@ -10,9 +10,11 @@ while [[ $# -gt 0 ]]; do
     --reboot)
       reboot=true
       shift
+      ;;
     --noreboot)
       reboot=false
       shift
+      ;;
     -h|--help)
       print_help
       exit 0
