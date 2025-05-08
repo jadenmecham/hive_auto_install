@@ -1,3 +1,4 @@
+SCRIPT_DIR="$(dirname "$0")"
 chmod -R 755 ./*.sh
 os_release=$(lsb_release -rs)
 major=$(echo "$os_release" | cut -d'.' -f1)
@@ -82,8 +83,8 @@ if [ $major -lt 20 ];then
   ros2=false
 fi
 #Disable ipv6
-sh ./disable_ipv6.sh
-sh ./mDNSfix.sh
+sh $SCRIPT_DIR/disable_ipv6.sh
+sh $SCRIPT_DIR/mDNSfix.sh
 #Update System
 sudo apt update -y
 sudo apt dist-upgrade -y
@@ -107,40 +108,40 @@ sudo apt install -y git terminator openssh-server python3-pip net-tools remmina 
 if [[ $os_release == "24.04" ]]; then
 	if $ros
         then
-            sh ./ROS/install_ros_one.sh
+            sh $SCRIPT_DIR/ROS/install_ros_one.sh
         fi
 	if $ros2
 	then
-	    sh ./ROS/install_ros2_jazzy.sh
+	    sh $SCRIPT_DIR/ROS/install_ros2_jazzy.sh
 	fi
 elif [[ $os_release == "22.04" ]]; then
 	sudo apt install -y nm-connection-editor
 	if $ros
         then
-            sh ./ROS/install_ros_one.sh
+            sh $SCRIPT_DIR/ROS/install_ros_one.sh
         fi
 	if $ros2
 	then
-	    sh ./ROS/install_ros2_humble.sh
+	    sh $SCRIPT_DIR/ROS/install_ros2_humble.sh
 	fi
 elif [[ $os_release == "20.04" ]]; then
-	sh ./install_2004_utils.sh
+	sh $SCRIPT_DIR/install_2004_utils.sh
 	sudo apt install -y exfat-utils
 	if $ros
         then
-            sh ./ROS/install_ros_noetic.sh
+            sh $SCRIPT_DIR/ROS/install_ros_noetic.sh
             sudo apt install -y python3-catkin*
         fi
 	if $ros2
 	then
-	    sh ./ROS/install_ros2_foxy.sh
+	    sh $SCRIPT_DIR/ROS/install_ros2_foxy.sh
 	fi
 elif [[ $os_release == "18.04" ]]; then
 	sudo apt install -y exfat-utils
 	sudo apt install python-pip -y
 	if $ros
 	then
-	    sh ./ROS/install_ros_melodic.sh
+	    sh $SCRIPT_DIR/ROS/install_ros_melodic.sh
 	    sudo apt install -y python-catkin-tools
 	fi
 elif [[ $os_release == "16.04" ]]; then
@@ -148,7 +149,7 @@ elif [[ $os_release == "16.04" ]]; then
 	sudo apt install python-pip -y
 	if $ros
 	then
-	    sh ./ROS/install_ros_kinetic.sh
+	    sh $SCRIPT_DIR/ROS/install_ros_kinetic.sh
 	    sudo apt install -y python-catkin-tools
 	fi
 else
@@ -168,8 +169,8 @@ sudo snap install code --classic
 sudo apt autoremove -y
 if [[ $cuda ]]; then
 	if [[ $reboot ]]; then
-		sh ./install_cuda.sh --reboot
+		sh $SCRIPT_DIR/install_cuda.sh --reboot
 	else
-		sh ./install_cuda.sh
+		sh $SCRIPT_DIR/install_cuda.sh
 	fi
 fi
