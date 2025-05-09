@@ -51,7 +51,7 @@ if [ $# -eq 0 ]; then
 		* ) reboot=false;;
 	esac
 fi
-if [[ $reboot ]]; then
+if $reboot; then
 	(sudo crontab -l; echo "@reboot $(pwd)/install_TFpyTorch.sh") | sudo crontab -
 	sudo shutdown -r now
 fi

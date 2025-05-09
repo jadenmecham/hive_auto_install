@@ -167,8 +167,8 @@ sudo snap install gitkraken --classic
 sudo snap install code --classic
 
 sudo apt autoremove -y
-if [[ $cuda ]]; then
-	if [[ $reboot ]]; then
+if $cuda; then
+	if $reboot; then
 		sh $SCRIPT_DIR/install_cuda.sh --reboot
 	else
 		sh $SCRIPT_DIR/install_cuda.sh

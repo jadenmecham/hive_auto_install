@@ -14,7 +14,7 @@ case $yn in
 	"" ) chgHN=true;;
 	* ) chgHN=false;;
 esac
-if [ $chgHN ]; then
+if $chgHN; then
 	read -p "Enter the new hostname: " new_hostname
 	if [ -z "$new_hostname" ]; then
 	  echo "Error: Hostname cannot be empty."
@@ -31,9 +31,9 @@ case $yn in
 	"" ) chgSSH=true;;
 	* ) chgSSH=false;;
 esac
-if [ $chgSSH ]; then
-	rm -rf /etc/ssh/ssh_host_*
-	sudo dpkg-reconfigure -y openssh-server
+if $chgSSH; then
+	sudo rm -rf /etc/ssh/ssh_host_*
+	sudo dpkg-reconfigure openssh-server
 fi
 echo "Updated info:"
 echo "Serial Number: $SERIAL_NUMBER"
