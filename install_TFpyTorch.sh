@@ -1,5 +1,5 @@
 if [ -n "$CRON" ]; then
-  crontab -l | grep -v "@reboot $0/install_TFpyTorch.sh" | sudo crontab -
+  sudo crontab -l | grep -v "@reboot $0/install_TFpyTorch.sh" | sudo crontab -
 fi
 sudo -H pip3 install --upgrade pip
 pip3 install tensorflow

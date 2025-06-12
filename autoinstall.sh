@@ -83,7 +83,7 @@ if [ $major -lt 20 ];then
   ros2=false
 fi
 #Disable ipv6
-sh $SCRIPT_DIR/disable_ipv6.sh
+sh $SCRIPT_DIR/forceipv4_apt.sh
 sh $SCRIPT_DIR/mDNSfix.sh
 #Update System
 sudo apt update -y

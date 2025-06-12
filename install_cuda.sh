@@ -30,7 +30,7 @@ sudo apt update -y
 sudo apt dist-upgrade -y
 sudo add-apt-repository -y ppa:graphics-drivers
 sudo apt update -y
-sudo apt install nvidia-driver-570
+sudo apt install -y nvidia-driver-570
 wget https://developer.download.nvidia.com/compute/cuda/12.8.0/local_installers/cuda_12.8.0_570.86.10_linux.run
 chmod 755 ./cuda_12.8.0_570.86.10_linux.run
 sudo sh cuda_12.8.0_570.86.10_linux.run --silent --toolkit
@@ -51,7 +51,7 @@ if [ $# -eq 0 ]; then
 		* ) reboot=false;;
 	esac
 fi
-if $reboot; then
+if [[ "$reboot" == "true" ]]; then
 	(sudo crontab -l; echo "@reboot $(pwd)/install_TFpyTorch.sh") | sudo crontab -
 	sudo shutdown -r now
 fi
