@@ -3,6 +3,9 @@
 # Install MAVROS and Extras
 sudo apt-get install -y ros-noetic-mavros ros-noetic-mavros-extras
 
+# plotjuggler
+sudo snap install plotjuggler-ros
+
 # Install GeographicLib Datasets (needed for MAVROS)
 wget https://raw.githubusercontent.com/mavlink/mavros/master/mavros/scripts/install_geographiclib_datasets.sh
 chmod a+x install_geographiclib_datasets.sh
