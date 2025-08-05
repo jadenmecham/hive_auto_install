@@ -166,6 +166,31 @@ sudo snap install pycharm-community --classic
 sudo snap install gitkraken --classic
 sudo snap install code --classic
 
+
+#--------- HIVE EXTRAS ---------#
+
+
+# Prompt to install extra packages
+read -r -p "Would you like to install Hive packages? [Y/n] " inputExtras
+case $inputExtras in
+    [yY][eE][sS]|[yY]|"")
+        echo "Installing Hive packages..."
+        # Example Extra Packages (Edit this list as needed)
+        sh "$SCRIPT_DIR/install_hive.sh"
+        sh "$SCRIPT_DIR/install_librealsense.sh"
+        ;;
+    [nN][oO]|[nN])
+        echo "Skipping Hive packages."
+        ;;
+    *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+esac
+
+#--------- END HIVE EXTRAS ---------#
+
+
 sudo apt autoremove -y
 if $cuda; then
 	if $reboot; then
@@ -174,3 +199,19 @@ if $cuda; then
 		sh $SCRIPT_DIR/install_cuda.sh
 	fi
 fi
+
+
+read -r -p "Would you like to reboot now (recommended)? [Y/n] " inputReboot
+case $inputReboot in
+    [yY][eE][sS]|[yY]|"")
+        echo "Rebooting now..."
+        sudo reboot
+        ;;
+    [nN][oO]|[nN])
+        echo "Reboot skipped. Please reboot manually later."
+        ;;
+    *)
+        echo "Invalid input..."
+        exit 1
+        ;;
+esac
