@@ -15,11 +15,17 @@ source ~/catkin_ws/devel/setup.bash
 cd
 cd catkin_ws/src
 
+# mavros
+git clone https://github.com/mavlink/mavros.git
+
+# mavlink
+git clone https://github.com/mavlink/mavlink-gbp-release.git
+
+# vrpn_mavros
+git clone https://github.com/Alopez6991/vrpn_mavros.git
+
 # vicon_bridge
 git clone https://github.com/jadenmecham/vicon_bridge.git
-
-# mavros
-git clone https://github.com/Alopez6991/vrpn_mavros.git
 
 # phidgets
 git clone -b noetic https://github.com/ros-drivers/phidgets_drivers.git
@@ -29,18 +35,14 @@ git clone -b noetic https://github.com/ccny-ros-pkg/imu_tools.git
 # trisonica
 git clone https://github.com/vanbreugel-lab/trisonica_ros.git
 
+# trajectory gen
+git clone https://github.com/Alopez6991/trajectory_gen.git
+
 # realsense
 sudo apt-get install libssl-dev libusb-1.0-0-dev libudev-dev pkg-config libgtk-3-dev
 sudo apt-get install git wget cmake build-essential
 sudo apt-get install libglfw3-dev libgl1-mesa-dev libglu1-mesa-dev at
-git clone https://github.com/IntelRealSense/librealsense.git
-cd librealsense
-./scripts/setup_udev_rules.sh
-./scripts/patch-realsense-ubuntu-lts-hwe.sh
-mkdir build && cd build
-cmake ../
-cmake ../ -DBUILD_EXAMPLES=true
-sudo make uninstall && make clean && make && sudo make install
+sudo apt-get install ros-$ROS_DISTRO-realsense2-camera
 
 # build
 catkin build
