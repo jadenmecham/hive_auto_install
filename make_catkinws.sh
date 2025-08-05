@@ -19,6 +19,7 @@ cd catkin_ws/src
 git clone https://github.com/mavlink/mavros.git
 cd mavros
 git checkout ed762be
+cd ..
 
 # vrpn_mavros
 git clone https://github.com/Alopez6991/vrpn_mavros.git
