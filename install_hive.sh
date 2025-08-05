@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd
+
 # Install MAVROS and Extras
 sudo apt-get install -y ros-noetic-mavros ros-noetic-mavros-extras
 
